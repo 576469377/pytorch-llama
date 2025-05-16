@@ -155,6 +155,7 @@ class SelfAttention(nn.Module):
 
         # Since every group of Q shares the same K and V heads, just repeat the K and V heads for every Q in the same group.
 
+        # multiple queries share a group of keys and values
         # (B, Seq_Len_KV, H_KV, Head_Dim) --> (B, Seq_Len_KV, H_Q, Head_Dim)
         keys = repeat_kv(keys, self.n_rep)
         # (B, Seq_Len_KV, H_KV, Head_Dim) --> (B, Seq_Len_KV, H_Q, Head_Dim)

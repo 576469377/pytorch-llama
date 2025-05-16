@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+
+import os
+os.environ['CUDA_VISIBLE_DEVICES'] = '0,1,2,3'
+
 from typing import Optional
 import torch
 import time
@@ -109,6 +114,7 @@ class LLaMA:
             out_text.append(self.tokenizer.decode(current_prompt_tokens))
         return (out_tokens, out_text)
     
+    # nucleus sampling
     def _sample_top_p(self, probs, p):
         # (B, vocab_size)
         probs_sort, probs_idx = torch.sort(probs, dim=-1, descending=True)
@@ -132,7 +138,7 @@ class LLaMA:
 if __name__ == '__main__':
     torch.manual_seed(0)
 
-    allow_cuda = False
+    allow_cuda = True
     device = 'cuda' if torch.cuda.is_available() and allow_cuda else 'cpu'
 
     prompts = [
@@ -147,7 +153,7 @@ if __name__ == '__main__':
         cheese =>""",
         # Zero shot prompt
         """Tell me if the following person is actually Doraemon disguised as human:
-        Name: Umar Jamil
+        Name: Jilin Yu
         Decision: 
         """
     ]

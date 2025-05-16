@@ -163,3 +163,11 @@ cython_debug/
 llama-2-*
 tokenizer.model
 sampling_tests.ipynb
+
+
+# Ignore conda environment directory
+.conda
+
+LICENSE
+tokenizer_checklist.chk
+USE_POLICY.md
