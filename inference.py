@@ -85,6 +85,8 @@ class LLaMA:
         cur_iterator = tqdm(range(1, total_len), desc="Generating tokens")
         for cur_pos in cur_iterator:
             with torch.no_grad():
+                # only generate one token at a time (because of the kv cache)
+                # decrease the time complexity from O(n^2) to O(n)
                 logits = self.model.forward(tokens[:, cur_pos-1:cur_pos], cur_pos)
             if temperature > 0:
                 # The temperature is applied before the softmax
